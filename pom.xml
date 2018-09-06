@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>com.github.phillip-kruger.thorntail.example.jcache</groupId>
+    <artifactId>thorntail-jcache</artifactId>
+    <version>1.0.0-SNAPSHOT</version>    
+    <packaging>war</packaging>
+    
+    <name>Thorntail JCache</name>
+    <url>https://github.com/phillip-kruger/thorntail-jcache-example</url>
+    <description>Demonstrate Thorntail + JCache + Infinispan.</description>
+    
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <scm>
+        <connection>scm:git:https://github.com/phillip-kruger/thorntail-jcache-example.git</connection>
+        <url>https://github.com/phillip-kruger/thorntail-jcache-example</url>
+    </scm>
+
+    <distributionManagement>
+        <site>
+            <id>wiki</id>
+            <url>https://github.com/phillip-kruger/thorntail-jcache-example/wiki</url>
+        </site>
+        
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    
+    </distributionManagement>
+
+    <developers>
+        <developer>
+            <name>Phillip Kruger</name>
+            <email>phillip.kruger@phillip-kruger.com</email>
+            <organizationUrl>http://www.phillip-kruger.com</organizationUrl>
+        </developer>
+    </developers>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        
+        <!-- Java version -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        
+        <!-- Java EE Platform -->        
+        <java-ee.version>7.0</java-ee.version>
+        <microProfile.version>1.3</microProfile.version>
+        <lombok.version>1.18.2</lombok.version>
+       
+        
+        <thorntail.version>2.1.0.Final</thorntail.version>
+        <debug.port>5006</debug.port>
+        <thorntail.configDir>${basedir}${file.separator}src${file.separator}main${file.separator}resources</thorntail.configDir>
+            
+        <!-- Infinispan -->
+        <!--<infinispan.version>9.3.1.Final</infinispan.version>-->
+        <infinispan.version>8.2.11.Final</infinispan.version>
+        
+        
+        <!-- Example web page -->
+        <semantic-ui.version>2.2.13</semantic-ui.version>
+        <jquery.version>2.1.4</jquery.version>
+        
+    </properties>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!--thorntail--> 
+            <dependency>
+                <groupId>io.thorntail</groupId>
+                <artifactId>bom</artifactId>
+                <version>${thorntail.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- infinispan -->
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-bom</artifactId>
+                <version>${infinispan.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+    <dependencies>
+    
+        <!-- Java EE -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${java-ee.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- MicroProfile -->
+        <dependency>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>${microProfile.version}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+         <!-- JCache -->
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-jcache</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.marshalling</groupId>
+                    <artifactId>jboss-marshalling-osgi</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.spec.javax.transaction</groupId>
+                    <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+  
+        <!-- Webjars: see http://www.webjars.org/documentation -->
+        <!-- Used in example web page -->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>semantic-ui</artifactId>
+            <version>${semantic-ui.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${jquery.version}</version>
+            <scope>runtime</scope>
+        </dependency> 
+        
+    </dependencies>
+    
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+
+            <!--To configure thorntail--> 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                 <!--thorntail config--> 
+                                <resource>
+                                    <directory>${thorntail.configDir}</directory>
+                                    <targetPath>${project.build.directory}</targetPath>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>project*.yml</include>
+                                        <include>*.properties</include>
+                                    </includes>
+                                </resource>
+
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>io.thorntail</groupId>
+                <artifactId>thorntail-maven-plugin</artifactId>
+                <version>${thorntail.version}</version>
+                <executions>
+                    <execution>
+                        <id>2</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <properties>
+                        <swarm.context.path>/${project.build.finalName}</swarm.context.path>
+                    </properties>
+                </configuration>
+            </plugin>
+
+        </plugins>
+            
+                    
+    </build>
+        
+    <profiles>
+        
+        <profile>
+            <id>thorntail-run</id>
+            <activation>
+                <property>
+                    <name>thorntail-run</name>
+                </property>
+            </activation>
+            
+            <build>
+                
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <executions>
+                            <execution>
+                                <id>1</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-jar</argument>
+                                <argument>-Xdebug</argument>
+                                <argument>-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${debug.port}
+                                </argument>
+                                <argument>
+                                    ${project.build.directory}${file.separator}${project.build.finalName}-thorntail.jar
+                                </argument>
+                                <argument>-s</argument>
+                                <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
+                                <argument>-Sdev</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+            </build>
+            
+        </profile>
+        
+    </profiles>      
+</project>
