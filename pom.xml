@@ -63,14 +63,14 @@
         <lombok.version>1.18.2</lombok.version>
        
         
-        <thorntail.version>2.1.0.Final</thorntail.version>
+        <thorntail.version>2.2.0.Final</thorntail.version>
         <debug.port>5006</debug.port>
         <thorntail.configDir>${basedir}${file.separator}src${file.separator}main${file.separator}resources</thorntail.configDir>
             
         <!-- Infinispan -->
         <!--<infinispan.version>9.3.1.Final</infinispan.version>-->
-        <infinispan.version>8.2.11.Final</infinispan.version>
-        
+        <!-- (In Thorntail) Infinispan version: Infinispan 'Chakra' 8.2.8.Final -->
+        <infinispan.version>8.2.8.Final</infinispan.version>
         
         <!-- Example web page -->
         <semantic-ui.version>2.2.13</semantic-ui.version>
@@ -144,9 +144,27 @@
                     <groupId>org.jboss.spec.javax.transaction</groupId>
                     <artifactId>jboss-transaction-api_1.1_spec</artifactId>
                 </exclusion>
+                
+            </exclusions>
+            
+        </dependency>
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-core</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                </exclusion>
+    
             </exclusions>
         </dependency>
-
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-commons</artifactId>
+            <scope>provided</scope>
+        </dependency>
   
         <!-- Webjars: see http://www.webjars.org/documentation -->
         <!-- Used in example web page -->

@@ -1,33 +1,46 @@
 package com.github.phillipkruger.quoteservice;
 
-import java.util.concurrent.TimeUnit;
+import java.io.IOException;
+import java.util.logging.Level;
+import javax.cache.CacheManager;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import lombok.extern.java.Log;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.infinispan.configuration.cache.Configuration;
-import org.infinispan.configuration.cache.ConfigurationBuilder;
+import org.infinispan.manager.DefaultCacheManager;
+import org.infinispan.manager.EmbeddedCacheManager;
 
 /**
  * Configure Infinispan
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  * 
  */
-//@ApplicationScoped
 @Log
 public class GlobalCacheConfig {
     
     @Inject @ConfigProperty(name = "jcache.timeout.seconds", defaultValue = "10")
     private int timeout;
     
-    //@Produces
-    public Configuration globalCacheConfiguration() {
+    @Inject @ConfigProperty(name = "jcache.cluster.name", defaultValue = "InfinispanCluster")
+    private String clusterName;
+    
+    @Inject @ConfigProperty(name = "infinispan.configuration.file", defaultValue = "infinispan.xml")
+    private String configurationFileName;
+    
+    @Produces
+    @ApplicationScoped
+    public EmbeddedCacheManager defaultClusteredCacheManager() {
+        //new CacheManager();
         
-        log.warning(">>>>>>> Nee man !");
-        return new ConfigurationBuilder()
-                .expiration().lifespan(timeout, TimeUnit.SECONDS)
-                .build();
+        
+        try {
+            EmbeddedCacheManager manager = new DefaultCacheManager(configurationFileName);
+            return manager;
+        } catch (IOException ex) {
+            log.log(Level.SEVERE, "Could not configure Infinispan [{0}]", ex.getMessage());
+        }
+        return new DefaultCacheManager();
     }
 
 }

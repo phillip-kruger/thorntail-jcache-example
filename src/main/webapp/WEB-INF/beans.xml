@@ -9,5 +9,5 @@
         <class>org.infinispan.jcache.annotation.InjectedCachePutInterceptor</class>
         <class>org.infinispan.jcache.annotation.InjectedCacheRemoveEntryInterceptor</class>
         <class>org.infinispan.jcache.annotation.InjectedCacheRemoveAllInterceptor</class>
-    </interceptors>
+   </interceptors>
 </beans>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infinispan
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="urn:infinispan:config:8.2 http://www.infinispan.org/schemas/infinispan-config-8.2.xsd"
+      xmlns="urn:infinispan:config:8.2">
+      
+      <cache-container default-cache="default">
+          <transport cluster="QuoteApp"/>
+          
+          <distributed-cache name="quoteCache" mode="SYNC">
+            <expiration lifespan="5000"/>
+<!--            <groups enabled="true">
+              <grouper class="org.infinispan.tutorial.embedded.LocationWeather$LocationGrouper"/>
+            </groups>-->
+          </distributed-cache>
+      </cache-container>
+</infinispan>

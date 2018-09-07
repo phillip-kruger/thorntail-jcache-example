@@ -2,8 +2,10 @@ package com.github.phillipkruger.quoteservice;
 
 import java.io.StringReader;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.cache.annotation.CacheKey;
 import javax.cache.annotation.CacheResult;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -32,8 +34,8 @@ import org.eclipse.microprofile.faulttolerance.Retry;
 public class QuoteService {
 
     @GET
-    @Retry(retryOn = javax.json.stream.JsonParsingException.class,maxRetries = 3)
-    @CacheResult
+    @Retry(retryOn = javax.json.stream.JsonParsingException.class,maxRetries = 3,delay = 10, durationUnit = ChronoUnit.SECONDS)
+    @CacheResult(cacheName = "quoteCache")
     public Quote getQuote(){
         WebTarget target = client.target(endpoint);
 
@@ -52,6 +54,14 @@ public class QuoteService {
             throw new RuntimeException("Error while getting qoute from Forismatic [" + response.getStatusInfo().getReasonPhrase() + "]");
         }
     }
+    
+//    @Inject Cache<String, String> cache;
+//    
+//    @GET 
+//    @Path("/printCache")
+//    public void printCache(){
+//        log.severe(">>>>> " + cache.getName());
+//    }
     
     private Quote toQuote(String json){
         log.info(json);
