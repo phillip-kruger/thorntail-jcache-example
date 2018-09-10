@@ -64,7 +64,6 @@
        
         
         <thorntail.version>2.2.0.Final</thorntail.version>
-        <debug.port>5006</debug.port>
         <thorntail.configDir>${basedir}${file.separator}src${file.separator}main${file.separator}resources</thorntail.configDir>
             
         <!-- Infinispan -->
@@ -144,9 +143,7 @@
                     <groupId>org.jboss.spec.javax.transaction</groupId>
                     <artifactId>jboss-transaction-api_1.1_spec</artifactId>
                 </exclusion>
-                
             </exclusions>
-            
         </dependency>
         <dependency>
             <groupId>org.infinispan</groupId>
@@ -157,7 +154,6 @@
                     <groupId>org.jboss.logging</groupId>
                     <artifactId>jboss-logging</artifactId>
                 </exclusion>
-    
             </exclusions>
         </dependency>
         <dependency>
@@ -165,7 +161,7 @@
             <artifactId>infinispan-commons</artifactId>
             <scope>provided</scope>
         </dependency>
-  
+        
         <!-- Webjars: see http://www.webjars.org/documentation -->
         <!-- Used in example web page -->
         <dependency>
@@ -265,27 +261,42 @@
                         <executions>
                             <execution>
                                 <id>1</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>java</executable>
+                                    <async>true</async>
+                                    <arguments>
+                                        <argument>-jar</argument>
+                                        <argument>${project.build.directory}${file.separator}${project.build.finalName}-thorntail.jar</argument>
+                                        <argument>-s</argument>
+                                        <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
+                                        <argument>-Sdev</argument>
+                                        <argument>-Dswarm.port.offset=100</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>2</id>
                                 <phase>post-integration-test</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
+                                <configuration>
+                                    <executable>java</executable>
+                                    <arguments>
+                                        <argument>-jar</argument>
+                                        <argument>${project.build.directory}${file.separator}${project.build.finalName}-thorntail.jar</argument>
+                                        <argument>-s</argument>
+                                        <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
+                                        <argument>-Sdev</argument>
+                                    </arguments>
+                                </configuration>
                             </execution>
                         </executions>
-                        <configuration>
-                            <executable>java</executable>
-                            <arguments>
-                                <argument>-jar</argument>
-                                <argument>-Xdebug</argument>
-                                <argument>-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${debug.port}
-                                </argument>
-                                <argument>
-                                    ${project.build.directory}${file.separator}${project.build.finalName}-thorntail.jar
-                                </argument>
-                                <argument>-s</argument>
-                                <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
-                                <argument>-Sdev</argument>
-                            </arguments>
-                        </configuration>
+                        
                     </plugin>
 
                 </plugins>

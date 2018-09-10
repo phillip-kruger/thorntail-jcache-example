@@ -1,3 +1,5 @@
-# OpenAPI UI Configuration
-openapi-ui.title: 'Thorntail JCache example'
-
+swarm:
+  logging:
+    loggers:
+      org.infinispan:
+        level: FINEST

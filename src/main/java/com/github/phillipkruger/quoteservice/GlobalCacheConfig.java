@@ -2,7 +2,6 @@ package com.github.phillipkruger.quoteservice;
 
 import java.io.IOException;
 import java.util.logging.Level;
-import javax.cache.CacheManager;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -31,8 +30,6 @@ public class GlobalCacheConfig {
     @Produces
     @ApplicationScoped
     public EmbeddedCacheManager defaultClusteredCacheManager() {
-        //new CacheManager();
-        
         
         try {
             EmbeddedCacheManager manager = new DefaultCacheManager(configurationFileName);

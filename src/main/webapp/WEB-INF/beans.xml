@@ -10,4 +10,8 @@
         <class>org.infinispan.jcache.annotation.InjectedCacheRemoveEntryInterceptor</class>
         <class>org.infinispan.jcache.annotation.InjectedCacheRemoveAllInterceptor</class>
    </interceptors>
+   
 </beans>
+
+
+    

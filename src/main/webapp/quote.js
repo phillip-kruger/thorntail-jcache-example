@@ -10,13 +10,16 @@ var cachedTime = document.getElementById("cachedTime");
 $('document').ready(function () {
     var url = contextRoot + "/api";
     var quoteJson = httpGet(url);
+
+    console.log(quoteJson);
+
     var quote = JSON.parse(quoteJson);
     writeResponse(quote.text,quote.author,quote.time);
 });
 
 function writeResponse(text,author,time){
     
-
+    
     messages.innerHTML += "<div class='ui statistic'>"
         + "<div class='value'>"
         + text
@@ -26,13 +29,9 @@ function writeResponse(text,author,time){
         + "</div>"
         + "</div>";
  
-    var hour = ("0" + time.hour).slice(-2);
-    var minute = ("0" + time.minute).slice(-2);
-    var second = ("0" + time.second).slice(-2);
-   
     cachedTime.innerHTML += "<div class='ui label'>"
         + "<i class='stopwatch icon'></i>"
-        + hour + "h" + minute + ":" + second
+        + time;
         + "</div>";
 
 }

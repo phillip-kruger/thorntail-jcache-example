@@ -1,6 +1,7 @@
 package com.github.phillipkruger.quoteservice;
 
 import java.io.StringReader;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import javax.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import javax.json.JsonReader;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -55,15 +57,17 @@ public class QuoteService {
         }
     }
     
-//    @Inject Cache<String, String> cache;
-//    
-//    @GET 
-//    @Path("/printCache")
-//    public void printCache(){
-//        log.severe(">>>>> " + cache.getName());
-//    }
+    @GET @Path("{id}")
+    @Retry(retryOn = javax.json.stream.JsonParsingException.class,maxRetries = 3,delay = 10, durationUnit = ChronoUnit.SECONDS)
+    @CacheResult(cacheName = "quoteCache")
+    public Quote getQuote(@PathParam("id") int id){
+        return getQuote();
+    }
     
     private Quote toQuote(String json){
+        
+        // This API sometimes send invalid JSON :(
+        json = json.replaceAll("\\\\", "");
         log.info(json);
         Quote quote = new Quote();
         try (JsonReader reader = Json.createReader(new StringReader(json))) {
@@ -77,7 +81,7 @@ public class QuoteService {
             if(author!=null)author = author.trim();
             quote.setAuthor(author);
             
-            quote.setTime(LocalTime.now());
+            quote.setTime(LocalDateTime.now());
         }
         
         return quote;
