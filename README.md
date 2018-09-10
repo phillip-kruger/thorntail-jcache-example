@@ -1,4 +1,4 @@
-# thorntail-jcache-example
+# Thorntail jcache (backed by Infinispan) example
 Example app to show JCache on Thorntail with Inifispan
 
 
