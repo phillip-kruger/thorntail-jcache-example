@@ -29,3 +29,7 @@ The Infinispan/Hazelcast grid in the background will share a cache over these 2 
 Go to http://localhost:8080/jcache-example/ and http://localhost:8180/jcache-example/
 
 They will show the same quote. After 30 seconds the cache will expire.
+
+![](https://raw.githubusercontent.com/phillip-kruger/thorntail-jcache-example/master/infinispan_logo.png)
+
+![](https://raw.githubusercontent.com/phillip-kruger/thorntail-jcache-example/master/hazelcast_logo.png)
