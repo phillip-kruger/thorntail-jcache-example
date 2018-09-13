@@ -5,7 +5,7 @@
     <groupId>com.github.phillip-kruger.thorntail.example.jcache</groupId>
     <artifactId>thorntail-jcache</artifactId>
     <version>1.0.0-SNAPSHOT</version>    
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     
     <name>Thorntail JCache</name>
     <url>https://github.com/phillip-kruger/thorntail-jcache-example</url>
@@ -58,19 +58,15 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         
         <!-- Java EE Platform -->        
-        <java-ee.version>7.0</java-ee.version>
+        <java-ee.version>8.0</java-ee.version>
         <microProfile.version>1.3</microProfile.version>
         <lombok.version>1.18.2</lombok.version>
        
+        <jcache.version>1.1.0</jcache.version>
         
         <thorntail.version>2.2.0.Final</thorntail.version>
         <thorntail.configDir>${basedir}${file.separator}src${file.separator}main${file.separator}resources</thorntail.configDir>
             
-        <!-- Infinispan -->
-        <!--<infinispan.version>9.3.1.Final</infinispan.version>-->
-        <!-- (In Thorntail) Infinispan version: Infinispan 'Chakra' 8.2.8.Final -->
-        <infinispan.version>8.2.8.Final</infinispan.version>
-        
         <!-- Example web page -->
         <semantic-ui.version>2.2.13</semantic-ui.version>
         <jquery.version>2.1.4</jquery.version>
@@ -86,14 +82,6 @@
                 <version>${thorntail.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <!-- infinispan -->
-            <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-bom</artifactId>
-                <version>${infinispan.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -126,41 +114,9 @@
         <dependency>
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
+            <version>${jcache.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-jcache</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.logging</groupId>
-                    <artifactId>jboss-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.marshalling</groupId>
-                    <artifactId>jboss-marshalling-osgi</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.spec.javax.transaction</groupId>
-                    <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-core</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.logging</groupId>
-                    <artifactId>jboss-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-commons</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        
         
         <!-- Webjars: see http://www.webjars.org/documentation -->
         <!-- Used in example web page -->
@@ -182,127 +138,11 @@
     
     <build>
         <finalName>${project.artifactId}</finalName>
-        <plugins>
-
-            <!--To configure thorntail--> 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>add-resource</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                 <!--thorntail config--> 
-                                <resource>
-                                    <directory>${thorntail.configDir}</directory>
-                                    <targetPath>${project.build.directory}</targetPath>
-                                    <filtering>true</filtering>
-                                    <includes>
-                                        <include>project*.yml</include>
-                                        <include>*.properties</include>
-                                    </includes>
-                                </resource>
-
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>io.thorntail</groupId>
-                <artifactId>thorntail-maven-plugin</artifactId>
-                <version>${thorntail.version}</version>
-                <executions>
-                    <execution>
-                        <id>2</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <properties>
-                        <swarm.context.path>/${project.build.finalName}</swarm.context.path>
-                    </properties>
-                </configuration>
-            </plugin>
-
-        </plugins>
-            
-                    
     </build>
-        
-    <profiles>
-        
-        <profile>
-            <id>thorntail-run</id>
-            <activation>
-                <property>
-                    <name>thorntail-run</name>
-                </property>
-            </activation>
-            
-            <build>
-                
-                <plugins>
-
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.6.0</version>
-                        <executions>
-                            <execution>
-                                <id>1</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>java</executable>
-                                    <async>true</async>
-                                    <arguments>
-                                        <argument>-jar</argument>
-                                        <argument>${project.build.directory}${file.separator}${project.build.finalName}-thorntail.jar</argument>
-                                        <argument>-s</argument>
-                                        <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
-                                        <argument>-Sdev</argument>
-                                        <argument>-Dswarm.port.offset=100</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>2</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>java</executable>
-                                    <arguments>
-                                        <argument>-jar</argument>
-                                        <argument>${project.build.directory}${file.separator}${project.build.finalName}-thorntail.jar</argument>
-                                        <argument>-s</argument>
-                                        <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
-                                        <argument>-Sdev</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        
-                    </plugin>
-
-                </plugins>
-            </build>
-            
-        </profile>
-        
-    </profiles>      
+    
+    <modules>
+        <module>jcache-infinispan</module>
+        <module>jcache-hazelcast</module>
+        <module>jcache-example</module>
+    </modules>
 </project>

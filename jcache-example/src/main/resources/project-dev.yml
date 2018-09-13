@@ -1,0 +1,7 @@
+swarm:
+  logging:
+    loggers:
+      org.infinispan:
+        level: INFO
+      com.hazelcast:
+        level: INFO  

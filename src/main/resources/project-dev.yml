@@ -1,5 +1,0 @@
-swarm:
-  logging:
-    loggers:
-      org.infinispan:
-        level: FINEST
