@@ -1,5 +1,6 @@
-# Thorntail jcache (backed by Infinispan) example
-Example app to show JCache on Thorntail with Inifispan
+# Thorntail jcache example
+
+Example app to show JCache on Thorntail with Inifispan or Hazelcast
 
 
 ## Getting started
