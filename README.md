@@ -33,3 +33,10 @@ They will show the same quote. After 30 seconds the cache will expire.
 ![](https://raw.githubusercontent.com/phillip-kruger/thorntail-jcache-example/master/infinispan_logo.png)
 
 ![](https://raw.githubusercontent.com/phillip-kruger/thorntail-jcache-example/master/hazelcast_logo.png)
+
+## TODO
+
+* Events on Infinispan
+* Add Ehcache
+* 2nd Level cache on JPA
+* CDI Remote events
