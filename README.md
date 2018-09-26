@@ -37,6 +37,9 @@ They will show the same quote. After 30 seconds the cache will expire.
 ## TODO
 
 * Events on Infinispan
-* Add Ehcache
-* 2nd Level cache on JPA
+* Add Ehcache and/or Redis
+* 2nd Level cache on JPA / Hibernate ? Writes ?
 * CDI Remote events
+* Explicit cache (@Cache injection)
+* What about when not Java ?
+* Offload to disk ?
