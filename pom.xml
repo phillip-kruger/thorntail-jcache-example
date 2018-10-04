@@ -143,6 +143,8 @@
     <modules>
         <module>jcache-infinispan</module>
         <module>jcache-hazelcast</module>
+        <module>jcache-ehcache</module>
         <module>jcache-example</module>
+        
     </modules>
 </project>

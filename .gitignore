@@ -25,3 +25,4 @@ hs_err_pid*
 /jcache-infinispan/target/
 /jcache-hazelcast/target/
 /jcache-example/target/
+/jcache-ehcache/target/

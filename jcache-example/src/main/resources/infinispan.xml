@@ -2,14 +2,28 @@
 <infinispan
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="urn:infinispan:config:8.2 http://www.infinispan.org/schemas/infinispan-config-8.2.xsd"
-    xmlns="urn:infinispan:config:8.2">
+    xmlns="urn:infinispan:config:9.1">
       
     <cache-container default-cache="default">
         <transport cluster="QuoteApp"/>
-          
-        <distributed-cache name="quoteCache" mode="SYNC">
+        
+        
+        <replicated-cache name="quoteCache" >
             <expiration lifespan="30000"/>
-        </distributed-cache>
+        </replicated-cache>
+   
+
+
+        <local-cache name="default"/>
+        
+          
+<!--        <distributed-cache name="quoteCache" mode="ASYNC" >
+            <expiration lifespan="30000"/>
+            
+            <custom-interceptors>
+                <interceptor position="FIRST" class="org.infinispanpan.interceptors.CallInterceptor"/>
+            </custom-interceptors>
+        </distributed-cache>-->
     </cache-container>
       
 </infinispan>

@@ -32,8 +32,6 @@
             <cache-entry-listener old-value-required="true" synchronous="false" >
               <cache-entry-listener-factory
                  class-name="com.github.phillipkruger.quoteservice.listener.CacheEntryListenerFactory" />
-<!--              <cache-entry-event-filter-factory
-                 class-name="com.example.cache.MyEntryEventFilterFactory" />-->
             </cache-entry-listener>
         </cache-entry-listeners>
     </cache>

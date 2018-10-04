@@ -33,7 +33,7 @@ import org.eclipse.microprofile.faulttolerance.Retry;
 @Log
 public class QuoteService {
 
-    @GET
+    @GET 
     @Retry(retryOn = javax.json.stream.JsonParsingException.class,maxRetries = 3,delay = 10, durationUnit = ChronoUnit.SECONDS)
     @CacheResult(cacheName = "quoteCache")
     public Quote getQuote(){

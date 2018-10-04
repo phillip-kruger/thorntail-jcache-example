@@ -89,7 +89,7 @@
                         </executions>
                         <configuration>
                             <!-- We marked infinispan as provided, so let's include it here -->
-                            <fractions>infinispan</fractions>
+                            <!--<fractions>infinispan</fractions>-->
                             <properties>
                                 <swarm.context.path>/${project.build.finalName}</swarm.context.path>
                             </properties>
@@ -159,6 +159,97 @@
                 <dependency>
                     <groupId>${project.groupId}</groupId>
                     <artifactId>jcache-hazelcast</artifactId>
+                    <version>${project.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+            
+            <build>
+                
+                <plugins>
+
+                    <plugin>
+                        <groupId>io.thorntail</groupId>
+                        <artifactId>thorntail-maven-plugin</artifactId>
+                        <version>${thorntail.version}</version>
+                        <executions>
+                            <execution>
+                                <id>2</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <properties>
+                                <swarm.context.path>/${project.build.finalName}</swarm.context.path>
+                            </properties>
+                        </configuration>
+                    </plugin>
+                    
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <executions>
+                            <execution>
+                                <id>1</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>java</executable>
+                                    <async>true</async>
+                                    <arguments>
+                                        <argument>-jar</argument>
+                                        <argument>${project.build.directory}${file.separator}${project.build.finalName}-thorntail.jar</argument>
+                                        <argument>-s</argument>
+                                        <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
+                                        <argument>-Sdev</argument>
+                                        <argument>-Dswarm.port.offset=100</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>2</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>java</executable>
+                                    <arguments>
+                                        <argument>-jar</argument>
+                                        <argument>${project.build.directory}${file.separator}${project.build.finalName}-thorntail.jar</argument>
+                                        <argument>-s</argument>
+                                        <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
+                                        <argument>-Sdev</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        
+                    </plugin>
+
+                </plugins>
+            </build>
+            
+        </profile>
+        
+        <profile>
+            <id>ehcache-run</id>
+            <activation>
+                <property>
+                    <name>ehcache-run</name>
+                </property>
+            </activation>
+            
+            <dependencies>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>jcache-ehcache</artifactId>
                     <version>${project.version}</version>
                     <scope>runtime</scope>
                 </dependency>

@@ -4,6 +4,7 @@ import com.hazelcast.config.ClasspathXmlConfig;
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import java.util.logging.Level;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
@@ -25,10 +26,12 @@ public class HazelcastConfig {
     
     public void init(@Observes @Initialized(ApplicationScoped.class) Object init) {
         Config config = new ClasspathXmlConfig(configurationFileName);
+        
         Hazelcast.newHazelcastInstance(config);
         
         log.log(Level.INFO, " ### Hazelcast started as JCache IMDG");
-        log.log(Level.INFO, " ### Using [{0}]", configurationFileName);
-        
+        log.log(Level.INFO, " ### Using [{0}]", configurationFileName);    
     }
+    
+
 }
