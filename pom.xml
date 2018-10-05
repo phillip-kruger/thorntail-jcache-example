@@ -145,6 +145,7 @@
         <module>jcache-hazelcast</module>
         <module>jcache-ehcache</module>
         <module>jcache-ignite</module>
+        <module>jcache-redis</module>
         <module>jcache-example</module>
         
     </modules>

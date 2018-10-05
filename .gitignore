@@ -27,3 +27,4 @@ hs_err_pid*
 /jcache-example/target/
 /jcache-ehcache/target/
 /jcache-ignite/target/
+/jcache-redis/target/
