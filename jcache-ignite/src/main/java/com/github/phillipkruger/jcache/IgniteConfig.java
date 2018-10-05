@@ -13,6 +13,11 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import lombok.Getter;
 import lombok.extern.java.Log;
+import org.apache.ignite.Ignite;
+import org.apache.ignite.Ignition;
+import org.apache.ignite.events.CacheEvent;
+import org.apache.ignite.events.EventType;
+import org.apache.ignite.lang.IgnitePredicate;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
@@ -42,6 +47,24 @@ public class IgniteConfig {
         for(String name:manager.getCacheNames()) {
             log.log(Level.INFO, " ###   Found cache [{0}]", name);
         }
+        
+        
+        
+        
+        Ignite ignite = Ignition.ignite();
+
+        // Local listener that listenes to local events.
+        IgnitePredicate<CacheEvent> locLsnr = evt -> {
+          log.log(Level.SEVERE, "Received event [evt={0}, key={1}, oldVal={2}, newVal={3}", new Object[]{evt.name(), evt.key(), evt.oldValue(), evt.newValue()});
+          return true; // Continue listening.
+        };
+
+        // Subscribe to specified cache events occuring on local node.
+        ignite.events().localListen(locLsnr,
+                EventType.EVT_CACHE_OBJECT_PUT,
+                EventType.EVT_CACHE_OBJECT_READ,
+                EventType.EVT_CACHE_OBJECT_REMOVED,
+                EventType.EVT_CACHE_OBJECT_EXPIRED);
           
     }
     
@@ -56,5 +79,8 @@ public class IgniteConfig {
             return cachingProvider.getDefaultURI();
         }
     }
+    
+    
+    
     
 }
