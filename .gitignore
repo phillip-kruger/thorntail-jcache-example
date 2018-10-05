@@ -26,3 +26,4 @@ hs_err_pid*
 /jcache-hazelcast/target/
 /jcache-example/target/
 /jcache-ehcache/target/
+/jcache-ignite/target/

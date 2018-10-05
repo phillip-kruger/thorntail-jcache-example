@@ -8,21 +8,25 @@
         <relativePath>../</relativePath>
     </parent>
     
-    <artifactId>jcache-hazelcast</artifactId>
+    <artifactId>jcache-ignite</artifactId>
     <packaging>jar</packaging>
-
-    <name>Thorntail JCache :: Hazelcast</name>
+    
+    <name>Thorntail JCache :: Ignite</name>
     
     <properties>
-        <hazelcast.version>3.10.4</hazelcast.version>
+        <ignite.version>2.6.0</ignite.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.hazelcast</groupId>
-            <artifactId>hazelcast</artifactId>
-            <version>${hazelcast.version}</version>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-core</artifactId>
+            <version>${ignite.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-spring</artifactId>
+            <version>${ignite.version}</version>
         </dependency>
     </dependencies>
-
 </project>

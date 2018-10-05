@@ -62,7 +62,7 @@
         <microProfile.version>1.3</microProfile.version>
         <lombok.version>1.18.2</lombok.version>
        
-        <jcache.version>1.1.0</jcache.version>
+        <jcache.cdi.version>1.0.0-SNAPSHOT</jcache.cdi.version>
         
         <thorntail.version>2.2.0.Final</thorntail.version>
         <thorntail.configDir>${basedir}${file.separator}src${file.separator}main${file.separator}resources</thorntail.configDir>
@@ -110,11 +110,11 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
-         <!-- JCache -->
+        <!-- JCache -->
         <dependency>
-            <groupId>javax.cache</groupId>
-            <artifactId>cache-api</artifactId>
-            <version>${jcache.version}</version>
+            <groupId>com.github.phillip-kruger</groupId>
+            <artifactId>jcache-cdi</artifactId>
+            <version>${jcache.cdi.version}</version>
         </dependency>
         
         
@@ -144,6 +144,7 @@
         <module>jcache-infinispan</module>
         <module>jcache-hazelcast</module>
         <module>jcache-ehcache</module>
+        <module>jcache-ignite</module>
         <module>jcache-example</module>
         
     </modules>

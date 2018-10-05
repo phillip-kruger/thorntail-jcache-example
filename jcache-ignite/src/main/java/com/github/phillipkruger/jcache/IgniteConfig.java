@@ -16,15 +16,15 @@ import lombok.extern.java.Log;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
- * Configure Ehcache
+ * Configure Ignite
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  * 
  */
 @Log
 @ApplicationScoped
-public class EhcacheConfig {
+public class IgniteConfig {
     
-    @Inject @ConfigProperty(name = "ehcache.configuration.file", defaultValue = "ehcache.xml")
+    @Inject @ConfigProperty(name = "ignite.configuration.file", defaultValue = "ignite.xml")
     private String configurationFileName;
     
     @Produces
@@ -34,7 +34,7 @@ public class EhcacheConfig {
     
     public void init(@Observes @Initialized(ApplicationScoped.class) Object init) {
         
-        log.log(Level.INFO, " ### Ehcache started as JCache IMDG");    
+        log.log(Level.INFO, " ### Apache Ignite started as JCache IMDG");    
         CachingProvider cachingProvider = Caching.getCachingProvider();
         URI resource = getConfigFile(cachingProvider);
         manager = cachingProvider.getCacheManager(resource,getClass().getClassLoader());
@@ -52,7 +52,7 @@ public class EhcacheConfig {
             log.log(Level.INFO, "Using [{0}] as configuration", resource);
             return resource;
         }catch (URISyntaxException ex) {
-            log.log(Level.WARNING, "No config file provided, using default");
+            log.log(Level.WARNING, "No config file provided, using default [" + ex.getMessage() + "]");
             return cachingProvider.getDefaultURI();
         }
     }
