@@ -30,8 +30,7 @@
         </expiry-policy-factory>
         <cache-entry-listeners>
             <cache-entry-listener old-value-required="true" synchronous="false" >
-              <cache-entry-listener-factory
-                 class-name="com.github.phillipkruger.quoteservice.listener.CacheEntryListenerFactory" />
+                <cache-entry-listener-factory class-name="com.github.phillipkruger.quoteservice.listener.CacheEntryListenerFactory" />
             </cache-entry-listener>
         </cache-entry-listeners>
     </cache>

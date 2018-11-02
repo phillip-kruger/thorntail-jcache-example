@@ -7,6 +7,9 @@ import javax.cache.event.CacheEntryListenerException;
 import javax.cache.event.CacheEntryRemovedListener;
 import javax.cache.event.CacheEntryExpiredListener;
 import javax.cache.event.CacheEntryUpdatedListener;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import lombok.extern.java.Log;
 
 /**
@@ -17,6 +20,7 @@ import lombok.extern.java.Log;
  * @param <V>
  */
 @Log
+@Dependent
 public class CacheEntryListener<K, V> implements 
         CacheEntryCreatedListener<K, V>,
         CacheEntryRemovedListener<K, V>,
@@ -26,31 +30,38 @@ public class CacheEntryListener<K, V> implements
     
     private static final long serialVersionUID = 97238465976927345L;
  
+    @Inject
+    private Event<JCacheEntryEvent> broadcaster;
+    
     @Override
     public void onCreated(Iterable<CacheEntryEvent<? extends K, ? extends V>> events) throws CacheEntryListenerException {
         for (CacheEntryEvent<? extends K, ? extends V> event : events) {
-            log.severe(">>>>>>>>>>>>> Received a onCreated : " + event);
+            broadcaster.fire(toJCacheEntryEvent(event));
         }
     }
 
     @Override
     public void onRemoved(Iterable<CacheEntryEvent<? extends K, ? extends V>> events) throws CacheEntryListenerException {
         for (CacheEntryEvent<? extends K, ? extends V> event : events) {
-            log.severe(">>>>>>>>>>>>> Received a onRemoved : " + event);
+            broadcaster.fire(toJCacheEntryEvent(event));
         }
     }
 
     @Override
     public void onExpired(Iterable<CacheEntryEvent<? extends K, ? extends V>> events) throws CacheEntryListenerException {
         for (CacheEntryEvent<? extends K, ? extends V> event : events) {
-            log.severe(">>>>>>>>>>>>> Received a onExpired : " + event);
+            broadcaster.fire(toJCacheEntryEvent(event));
         }
     }
 
     @Override
     public void onUpdated(Iterable<CacheEntryEvent<? extends K, ? extends V>> events) throws CacheEntryListenerException {
         for (CacheEntryEvent<? extends K, ? extends V> event : events) {
-            log.severe(">>>>>>>>>>>>> Received a onUpdated : " + event);
+            broadcaster.fire(toJCacheEntryEvent(event));
         }
+    }
+    
+    private JCacheEntryEvent toJCacheEntryEvent(CacheEntryEvent cacheEntryEvent){
+        return new JCacheEntryEvent(cacheEntryEvent.getEventType(), cacheEntryEvent.getKey(), cacheEntryEvent.getValue(), cacheEntryEvent.getOldValue());
     }
 }

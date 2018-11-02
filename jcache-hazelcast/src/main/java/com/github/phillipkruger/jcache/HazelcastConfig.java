@@ -1,8 +1,5 @@
 package com.github.phillipkruger.jcache;
 
-import com.hazelcast.config.ClasspathXmlConfig;
-import com.hazelcast.config.Config;
-import com.hazelcast.core.Hazelcast;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;

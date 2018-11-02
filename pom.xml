@@ -95,7 +95,7 @@
             <version>${java-ee.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- MicroProfile -->
+        <!--MicroProfile--> 
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
             <artifactId>microprofile</artifactId>
@@ -147,6 +147,5 @@
         <module>jcache-ignite</module>
         <module>jcache-redis</module>
         <module>jcache-example</module>
-        
     </modules>
 </project>
