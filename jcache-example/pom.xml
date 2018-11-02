@@ -92,7 +92,7 @@
                             <!-- We marked infinispan as provided, so let's include it here -->
                             <!--<fractions>infinispan</fractions>-->
                             <properties>
-                                <swarm.context.path>/${project.build.finalName}</swarm.context.path>
+                                <thorntail.context.path>/${project.build.finalName}</thorntail.context.path>
                             </properties>
                         </configuration>
                     </plugin>
@@ -117,7 +117,7 @@
                                         <argument>-s</argument>
                                         <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
                                         <argument>-Sdev</argument>
-                                        <argument>-Dswarm.port.offset=100</argument>
+                                        <argument>-Dthorntail.port.offset=100</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -184,7 +184,7 @@
                         </executions>
                         <configuration>
                             <properties>
-                                <swarm.context.path>/${project.build.finalName}</swarm.context.path>
+                                <thorntail.context.path>/${project.build.finalName}</thorntail.context.path>
                             </properties>
                         </configuration>
                     </plugin>
@@ -209,7 +209,7 @@
                                         <argument>-s</argument>
                                         <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
                                         <argument>-Sdev</argument>
-                                        <argument>-Dswarm.port.offset=100</argument>
+                                        <argument>-Dthorntail.port.offset=100</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -276,7 +276,7 @@
                         </executions>
                         <configuration>
                             <properties>
-                                <swarm.context.path>/${project.build.finalName}</swarm.context.path>
+                                <thorntail.context.path>/${project.build.finalName}</thorntail.context.path>
                             </properties>
                         </configuration>
                     </plugin>
@@ -301,7 +301,7 @@
                                         <argument>-s</argument>
                                         <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
                                         <argument>-Sdev</argument>
-                                        <argument>-Dswarm.port.offset=100</argument>
+                                        <argument>-Dthorntail.port.offset=100</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -368,7 +368,7 @@
                         </executions>
                         <configuration>
                             <properties>
-                                <swarm.context.path>/${project.build.finalName}</swarm.context.path>
+                                <thorntail.context.path>/${project.build.finalName}</thorntail.context.path>
                             </properties>
                         </configuration>
                     </plugin>
@@ -393,7 +393,7 @@
                                         <argument>-s</argument>
                                         <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
                                         <argument>-Sdev</argument>
-                                        <argument>-Dswarm.port.offset=100</argument>
+                                        <argument>-Dthorntail.port.offset=100</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -460,7 +460,7 @@
                         </executions>
                         <configuration>
                             <properties>
-                                <swarm.context.path>/${project.build.finalName}</swarm.context.path>
+                                <thorntail.context.path>/${project.build.finalName}</thorntail.context.path>
                             </properties>
                         </configuration>
                     </plugin>
@@ -485,7 +485,7 @@
                                         <argument>-s</argument>
                                         <argument>${project.build.directory}${file.separator}project-defaults.yml</argument>
                                         <argument>-Sdev</argument>
-                                        <argument>-Dswarm.port.offset=100</argument>
+                                        <argument>-Dthorntail.port.offset=100</argument>
                                     </arguments>
                                 </configuration>
                             </execution>

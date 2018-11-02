@@ -64,7 +64,7 @@
        
         <jcache.cdi.version>1.0.0-SNAPSHOT</jcache.cdi.version>
         
-        <thorntail.version>2.2.0.Final</thorntail.version>
+        <thorntail.version>2.2.1.Final</thorntail.version>
         <thorntail.configDir>${basedir}${file.separator}src${file.separator}main${file.separator}resources</thorntail.configDir>
             
         <!-- Example web page -->
