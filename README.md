@@ -5,6 +5,12 @@ Example app to show JCache on Thorntail with Inifispan or Hazelcast
 
 ## Getting started
 
+You need to clone and build this locally:
+
+    https://github.com/phillip-kruger/jcache-cdi
+
+then do:
+
     git clone https://github.com/phillip-kruger/thorntail-jcache-example.git
     cd thorntail-jcache
     mvn clean install
