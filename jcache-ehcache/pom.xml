@@ -14,7 +14,7 @@
     <name>Thorntail JCache :: Ehcache</name>
     
     <properties>
-        <ehcache.version>3.6.1</ehcache.version>
+        <ehcache.version>3.8.0</ehcache.version>
     </properties>
     
     <dependencies>

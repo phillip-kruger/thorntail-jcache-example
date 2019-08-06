@@ -15,7 +15,7 @@
     
     <properties>
         <!-- Infinispan -->
-        <infinispan.version>9.3.3.Final</infinispan.version>
+        <infinispan.version>9.4.15.Final</infinispan.version>
     </properties>
 
     <dependencies>
